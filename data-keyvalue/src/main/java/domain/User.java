@@ -1,10 +1,9 @@
 package domain;
 
-import java.util.UUID;
 
 public class User {
 	
-	private UUID id;
+	private String id;
 	
 	private String name;
 	
@@ -13,15 +12,14 @@ public class User {
 	}
 
 	public User(String name) {
-		this.id = UUID.randomUUID();
 		this.name = name;
 	}
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
