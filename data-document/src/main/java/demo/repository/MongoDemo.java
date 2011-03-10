@@ -9,8 +9,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.data.document.mongodb.MongoTemplate;
 
 import repository.PersonRepository;
-import core.Address;
-import core.Person;
+import domain.Address;
+import domain.Person;
 
 public class MongoDemo {
 
