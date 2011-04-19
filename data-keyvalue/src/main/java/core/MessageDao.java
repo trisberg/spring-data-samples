@@ -9,39 +9,29 @@ import org.springframework.data.keyvalue.redis.serializer.StringRedisSerializer;
 import org.springframework.data.keyvalue.redis.support.atomic.RedisAtomicLong;
 import org.springframework.stereotype.Repository;
 
+import domain.Message;
 import domain.User;
 
 @Repository
-public class UserDao {
+public class MessageDao {
 	
-	private ValueOperations<String, User> ops;
-	
-	private RedisAtomicLong userIdCounter;
-	
+	private ValueOperations<String, Message> ops;
+		
 	@Autowired
 	public void setConnectionFactory(RedisConnectionFactory connectionFactory) {
-		RedisTemplate<String, User> redisTemplate = new RedisTemplate<String, User>();
-		redisTemplate.setConnectionFactory(connectionFactory);
+		RedisTemplate<String, Message> redisTemplate = new RedisTemplate<String, Message>(connectionFactory);
 		redisTemplate.setKeySerializer(new StringRedisSerializer());
 		redisTemplate.setValueSerializer(new JacksonJsonRedisSerializer<User>(User.class));
-		//redisTemplate.setStringSerializer(new StringRedisSerializer());
-		redisTemplate.afterPropertiesSet();
+		redisTemplate.setStringSerializer(new StringRedisSerializer());
 		this.ops = redisTemplate.opsForValue();
-
-		this.userIdCounter = new RedisAtomicLong("global:uid", connectionFactory);
 	}
 
 
-	public void add(User user) {
-		user.setId(newUserId());
-		this.ops.set(user.getId(), user);
+	public void add(User user, Message message) {
+		this.ops.set(user.getId() + ":" + message.getTimestamp(), message);
 	}
 	
 	public Object get(String key) {
 		return this.ops.get(key);
-	}
-
-	private String newUserId() {
-		return "user:" + this.userIdCounter.incrementAndGet();
 	}
 }

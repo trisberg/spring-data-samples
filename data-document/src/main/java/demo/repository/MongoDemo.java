@@ -28,6 +28,8 @@ public class MongoDemo {
 		// add some people
 		Person mark = createMark();
 		mark = personRepository.save(mark);
+		Person mark2 = createMark();
+		mark2 = personRepository.save(mark2);
 		Person thomas = createThomas();
 		thomas = personRepository.save(thomas);
 		

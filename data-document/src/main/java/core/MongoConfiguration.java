@@ -5,7 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.document.mongodb.MongoFactoryBean;
 import org.springframework.data.document.mongodb.MongoTemplate;
-import org.springframework.data.document.mongodb.SimpleMongoConverter;
+import org.springframework.data.document.mongodb.convert.MappingMongoConverter;
+import org.springframework.data.document.mongodb.convert.MongoConverter;
+import org.springframework.data.document.mongodb.mapping.MongoMappingContext;
 
 import com.mongodb.Mongo;
 
@@ -20,8 +22,14 @@ public class MongoConfiguration {
     	return new PersistenceExceptionTranslationPostProcessor();
     }
     
-    public @Bean MongoTemplate mongoTemplate(Mongo mongo) {
-    	return new MongoTemplate(mongo, "test", "person", new SimpleMongoConverter());
+    public @Bean MongoConverter mongoConverter() {
+    	return new MappingMongoConverter(new MongoMappingContext());
+    }
+
+    public @Bean MongoTemplate mongoTemplate(Mongo mongo, MongoConverter mongoConverter) {
+    	MongoTemplate template = new MongoTemplate(mongo, "test", "person");
+    	template.setMongoConverter(mongoConverter);
+    	return template;
     }
 
 }

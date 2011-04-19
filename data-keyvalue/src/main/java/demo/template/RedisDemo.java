@@ -35,7 +35,7 @@ public class RedisDemo {
 		System.out.println("Two: " + dao.get("Two"));
 		System.out.println("Three: " + new Date((Long) dao.get("Three")));
 		System.out.println("Four: " + dao.get("Four"));
-		System.out.println("User: " + userDao.get(u.getId().toString()));
+		System.out.println("User: " + userDao.get(u.getId().toString()).getClass());
 
 	}
 

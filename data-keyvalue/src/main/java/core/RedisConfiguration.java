@@ -14,7 +14,7 @@ public class RedisConfiguration {
 	@Bean
 	RedisConnectionFactory connectionFactory() {
 		JedisConnectionFactory jedisConnFactory = new JedisConnectionFactory();
-		jedisConnFactory.setUsePool(true);
+		jedisConnFactory.setUsePool(false);
 		return jedisConnFactory;
 	}
 	
