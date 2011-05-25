@@ -2,20 +2,15 @@ package domain;
 
 import java.util.Map;
 
-
 public class Person {
-	
+
 	private String id;
 
 	private String name;
-	
-	private Map<String, Object> personalInfo;
-	
-	private Address address;
 
-	// need default constructor for now
-	public Person() {
-	}
+	private Map<String, Object> personalInfo;
+
+	private Address address;
 
 	public Person(String name) {
 		this.name = name;
@@ -54,7 +49,8 @@ public class Person {
 	}
 
 	public String toString() {
-		return "[" + id + "] " + name + " " + address + " : " + this.getPersonalInfo();
+		return "[" + id + "] " + name + " " + address + " : "
+				+ this.getPersonalInfo();
 	}
 
 }

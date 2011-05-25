@@ -20,8 +20,8 @@ public class MongoDemo {
 		
 		// clear out old test data first
 		MongoTemplate template  = context.getBean(MongoTemplate.class);
-		if (template.collectionExists("person")) {
-			template.dropCollection("person");
+		if (template.collectionExists(template.getCollectionName(Person.class))) {
+			template.dropCollection(template.getCollectionName(Person.class));
 		}
 		
 		// add some people
@@ -38,6 +38,8 @@ public class MongoDemo {
 		
 		Person found = template.findOne(new Query(Criteria.where("name").is("Mark")), Person.class);
 		System.out.println("Found: " + found);
+
+		System.out.println("Using: " + template.getCollectionName(Person.class));
 
 	}
 
